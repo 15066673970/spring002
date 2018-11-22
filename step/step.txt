@@ -23,3 +23,10 @@
 		1.无参构造创建
 		2.静态工厂创建（了解）
 		3.实例工厂创建（了解）
+	3=>scope属性；为了方便演示，新建包scope
+		常用的有四种
+			1。singleton单例 （默认）
+			2.prototype多例
+			3.request（了解）
+			4.session（了解）
+			5.globalsession（了解）

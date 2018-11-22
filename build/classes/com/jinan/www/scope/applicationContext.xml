@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd ">
+	<!-- 默认是sinleton单例 -->
+<!-- <bean name="user" class="com.jinan.www.bean.User" ></bean> -->
+<!-- prototype多例 -->
+<bean name="user" class="com.jinan.www.bean.User" scope="prototype"></bean>
+<!-- request:web环境下，对象与request生命周期一致 -->
+<!-- session:web环境下，对象与session生命周期一致 -->
+</beans>
