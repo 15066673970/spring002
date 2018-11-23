@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns:p="http://www.springframework.org/schema/p" 
+xmlns="http://www.springframework.org/schema/beans" 
+xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd ">
+
+
+	<!-- set方法注入 -->
+	<bean name="teacher1" class="com.jinan.www.injection.Teacher">
+		<!--值类型注入： 为teacher1对象中名为name的属性注入张老师作为值 -->
+		<property name="name" value="张老师"></property>
+		<property name="age" value="30"></property>
+		<!--引用类型注入： 为car属性注入下方配置的car1对象 -->
+		<property name="car" ref="car1"></property>
+	</bean>
+	<!-- 将car配置到容器中 -->
+	<bean name="car1" class="com.jinan.www.injection.Car">
+		<property name="name" value="宝马"></property>
+		<property name="color" value="yellow"></property>
+	</bean>
+
+
+<!-- ====================================================== -->
+	<!-- 构造函数注入 ：首先要在实体类里面增加使用参数的构造方法-->
+	<!-- 1.当含有多个重载的构造函数的时候使用index属性去指定具体的使用的是哪一个构造函数-->
+	<bean name="teacher2" class="com.jinan.www.injection.Teacher">
+		<constructor-arg name="name" value="李老师"></constructor-arg>
+		<constructor-arg name="age" value="31"></constructor-arg>
+		<constructor-arg name="car" ref="car2" index="0"></constructor-arg>
+	</bean>
+	<!-- 3.第三种构造方法 -->
+	<!-- name属性：构造函数的参数名 -->
+	<!-- index属性：构造函数的参数索引 -->
+	<bean name="teacher3" class="com.jinan.www.injection.Teacher">
+		<constructor-arg name="name" value="999" type="java.lang.Integer" index="1"></constructor-arg>
+		<constructor-arg name="age" value="31" type="java.lang.String" index="2"></constructor-arg>
+		<constructor-arg name="car" ref="car1" index="0"></constructor-arg>
+	</bean>
+	<bean name="car2" class="com.jinan.www.injection.Car">
+		<property name="name" value="大众"></property>
+		<property name="color" value="black"></property>
+	</bean>
+	
+<!-- ==================================================================== -->
+ 	<!-- p空间注入，走set方法
+ 	 1.导入p名称空间：xmlns:p="http://www.springframework.org/schema/p" 
+ 	 2.使用p:属性完成注入：
+ 	 		1-值类型：p：属性名="值"
+ 	 		2-引用类型：p：属性名-ref ="bean名称"
+ 	
+ 	 -->
+ 	 <bean name="teacher4" class="com.jinan.www.injection.Teacher" p:name="钱老师" p:age="33" p:car-ref="car2"></bean>
+<!-- ==================================================================== -->
+	<!-- spel注入：spring expression language spring表达式语言 -->
+	<bean name="teacher5" class="com.jinan.www.injection.Teacher">
+		<property name="name" value="#{teacher1.name}"></property>
+		<property name="age" value="#{teacher4.age}"></property>
+		<property name="car" ref="car2"></property>
+	</bean> 
+<!-- ======================================================================== -->
+	<!-- 复杂类型注入 -->
+	<!-- array注入 -->
+	<bean name="cb" class="com.jinan.www.injection.CollectionBean">
+	<!-- 如果数组中只准备注入一个值（对象），直接使用value/ref即可。 -->
+		<!-- <property name="arr" value="tom"></property> -->
+		<!-- array注入，多个元素 -->
+		<property name="arr">
+			<array>
+				<value>tom</value>
+				<value>jerry</value>
+				<ref bean="teacher4"/>
+			</array>
+		</property>
+		
+	<!-- List注入 -->
+	<!-- 如果数组中只准备注入一个值（对象），直接使用value/ref即可。 -->
+		<!-- <property name="list" value="hah"></property> -->
+		<!-- list注入，多个元素 -->
+		<property name="list">
+			<list>
+				<value>tom</value>
+				<value>jerry</value>
+				<ref bean="teacher4"/>
+			</list>
+		</property>
+	<!-- map注入 -->
+		<property name="map">
+			<map>
+				<entry key="url" value="http://www.baidu.com"></entry>			
+				<entry key-ref="teacher4" value="http://www.taobao.com"></entry>
+				<entry key-ref="teacher1" value-ref="teacher2"></entry>
+			</map>
+		</property>
+	<!-- properties类型注入 -->
+		<property name="properties">
+			<props>
+				<prop key="driverClass">com.jdbc.mysql.Driver</prop>
+				<prop key="username">admin</prop>
+				<prop key="password">111111</prop>
+			</props>
+		</property>
+	</bean>
+</beans>

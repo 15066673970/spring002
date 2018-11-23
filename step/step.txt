@@ -30,3 +30,21 @@
 			3.request（了解）
 			4.session（了解）
 			5.globalsession（了解）
+	4=>声明周期属性；为了方便演示，新建包initdestroy
+			1。配置一个方法作为生命周期初始化方法，spring会在对象创建之后立即调用 init-method
+			2.配置一个方法作为生命周期的销毁方法。spring容器在关闭并销毁所有容器中的对象之前调用destroy-method
+	5=》spring分模块配置。
+			导入其他spring配置文件
+			<import resource="com/jinan/www/initdestroy/applicationContext.xml">
+	6->spring属性注入（set方法注入，构造函数注入，p名称空间注入，spel注入）为方便演示，新建包injection
+		1。set方法注入。值类型注入使用name，value ，引用类型注入使用name，ref
+		2.构造函数注入。首先要在实体类里面配置带参数的构造方法。第二要根据index属性设置使用的具体的是哪一个构造函数，
+			如果有多个重载的构造函数的时候，可以通过使用index属性指定构造函数的参数的顺序，还可以使用type属性指定
+			构造函数参数的类型。
+		3.（了解）p名称空间注入
+		4.（了解）spel注入
+		5.复杂类型注入（array、list、map、properties）
+		
+	
+	
+	
